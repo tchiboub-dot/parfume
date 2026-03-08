@@ -6,7 +6,8 @@ import Image from "next/image";
 import { Mail, Sparkles, Shield, Truck, Award } from "lucide-react";
 
 import { ProductCard } from "@/components/shop/product-card";
-import { perfumes, testimonials } from "@/lib/data";
+import { ReviewSection } from "@/components/reviews/review-section";
+import { perfumes } from "@/lib/data";
 import { Locale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/translations";
 
@@ -234,36 +235,7 @@ export function HomeSections({ locale }: { locale: Locale }) {
           viewport={{ once: true }}
           className="space-y-12"
         >
-          <div className="space-y-5">
-            <h2 className="section-title">Client Stories</h2>
-            <p className="section-intro">
-              Hear from our customers about their fragrance journey with Parfume Luxe.
-            </p>
-          </div>
-
-          <div className="grid gap-8 md:grid-cols-3">
-            {testimonials.map((item, idx) => (
-              <motion.article
-                key={item.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1 }}
-                viewport={{ once: true }}
-                className="testimonial-card flex flex-col"
-              >
-                <div className="quote-mark">"</div>
-                <div className="flex-1">
-                  <p className="mb-6 text-[1.03rem] italic leading-relaxed text-[color:var(--text)]">
-                    {item.quote}
-                  </p>
-                </div>
-                <div className="border-t border-white/10 pt-6">
-                  <p className="font-display text-base font-semibold text-[color:var(--gold)]">{item.name}</p>
-                  <p className="mt-1 text-xs uppercase tracking-[0.14em] text-[color:var(--text-soft)]">{item.city}</p>
-                </div>
-              </motion.article>
-            ))}
-          </div>
+          <ReviewSection locale={locale} featuredOnly />
         </motion.div>
       </section>
 

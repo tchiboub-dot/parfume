@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { Package, ShoppingCart, Users, AlertTriangle } from "lucide-react";
+import { Package, ShoppingCart, Users, AlertTriangle, MessageSquare } from "lucide-react";
 
 import { getAuthSession } from "@/lib/auth";
 import { adminStats } from "@/lib/data";
@@ -71,7 +71,7 @@ export default async function AdminPage({ params }: { params: Promise<{ locale: 
         {/* Quick Actions */}
         <div className="mb-12">
           <h2 className="text-2xl font-serif font-bold mb-6">Quick Actions</h2>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <Link
               href={`/${locale}/admin/products`}
               className="bg-surface p-6 rounded-lg border border-border hover:border-gold transition-colors group"
@@ -97,6 +97,15 @@ export default async function AdminPage({ params }: { params: Promise<{ locale: 
               <Users className="w-8 h-8 mb-3 text-gold" />
               <h3 className="text-lg font-semibold mb-1">Customer Management</h3>
               <p className="text-sm text-muted">View and manage customer accounts</p>
+            </Link>
+
+            <Link
+              href={`/${locale}/admin/reviews`}
+              className="bg-surface p-6 rounded-lg border border-border hover:border-gold transition-colors group"
+            >
+              <MessageSquare className="w-8 h-8 mb-3 text-gold" />
+              <h3 className="text-lg font-semibold mb-1">Moderate Reviews</h3>
+              <p className="text-sm text-muted">Approve, reject, feature, or remove reviews</p>
             </Link>
           </div>
         </div>

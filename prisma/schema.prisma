@@ -29,6 +29,12 @@ enum Role {
   CUSTOMER
 }
 
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
 model User {
   id           String      @id @default(cuid())
   email        String      @unique
@@ -188,4 +194,23 @@ model NewsletterSubscriber {
   id        String   @id @default(cuid())
   email     String   @unique
   createdAt DateTime @default(now())
+}
+
+model CustomerReview {
+  id           String       @id @default(cuid())
+  customerName String
+  avatarUrl    String?
+  rating       Int
+  comment      String
+  locale       String       @default("en")
+  productSlug  String?
+  productName  String?
+  isStoreReview Boolean     @default(true)
+  status       ReviewStatus @default(PENDING)
+  featured     Boolean      @default(false)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@index([status, createdAt])
+  @@index([productSlug, status])
 }
