@@ -18,13 +18,13 @@ export default async function LocaleLayout({
 
   return (
     <SiteProviders>
-      {/* Root background - full height */}
-      <div className="relative w-full min-h-screen bg-[color:var(--bg)]" style={{ isolation: "auto" }}>
-        {/* Stars layer - absolutely positioned, spans full document height */}
+      {/* Root background system: base layer -> stars -> content */}
+      <div className="relative w-full min-h-screen">
+        <div aria-hidden className="pointer-events-none fixed inset-0 z-0 bg-[color:var(--bg)]" />
         <Starfield />
         
-        {/* Main content - positioned relative to allow z-index stacking */}
-        <div lang={locale} dir={getDirection(locale as Locale)} className="relative z-0 w-full text-[color:var(--text)]">
+        {/* Main content - above global background layers */}
+        <div lang={locale} dir={getDirection(locale as Locale)} className="relative z-20 w-full text-[color:var(--text)]">
           <Navbar locale={locale as Locale} />
           {children}
           <Footer locale={locale as Locale} />
