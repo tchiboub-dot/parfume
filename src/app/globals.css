@@ -77,9 +77,14 @@ html {
 .stars-layer-3 {
   background-repeat: repeat;
   background-size: 380px 380px;
-  opacity: 0.78;
+  opacity: 0.76;
   pointer-events: none;
   will-change: background-position, opacity;
+}
+
+.stars-parallax {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 /* Dark Mode Stars - Visible and refined */
@@ -129,7 +134,7 @@ html {
 .light .stars-layer-1,
 .light .stars-layer-2,
 .light .stars-layer-3 {
-  opacity: 0.7;
+  opacity: 0.68;
 }
 
 @keyframes starsDriftA {
@@ -147,16 +152,22 @@ html {
   50% { opacity: 0.78; }
 }
 
+@keyframes starsTwinkle {
+  0%, 100% { filter: brightness(0.92); }
+  40% { filter: brightness(1.08); }
+  60% { filter: brightness(0.98); }
+}
+
 .stars-layer-1 {
-  animation: starsDriftA 190s linear infinite;
+  animation: starsDriftA 210s linear infinite, starsTwinkle 18s ease-in-out infinite;
 }
 
 .stars-layer-2 {
-  animation: starsDriftB 240s linear infinite;
+  animation: starsDriftB 260s linear infinite reverse, starsTwinkle 22s ease-in-out infinite;
 }
 
 .stars-layer-3 {
-  animation: starsDriftA 300s linear infinite reverse, starsDriftC 16s ease-in-out infinite;
+  animation: starsDriftA 320s linear infinite reverse, starsDriftC 20s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -164,6 +175,7 @@ html {
   .stars-layer-2,
   .stars-layer-3 {
     animation: none;
+    filter: none;
   }
 }
 
