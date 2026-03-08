@@ -18,8 +18,12 @@ export default async function LocaleLayout({
 
   return (
     <SiteProviders>
-      <div lang={locale} dir={getDirection(locale as Locale)} className="min-h-screen bg-[color:var(--bg)] text-[color:var(--text)]">
-        <Starfield />
+      {/* Global background and stars layer */}
+      <div className="fixed inset-0 -z-20 bg-[color:var(--bg)]" />
+      <Starfield />
+      
+      {/* Main content wrapper */}
+      <div lang={locale} dir={getDirection(locale as Locale)} className="relative z-0 min-h-screen text-[color:var(--text)]">
         <Navbar locale={locale as Locale} />
         {children}
         <Footer locale={locale as Locale} />
