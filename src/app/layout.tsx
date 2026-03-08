@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Manrope, Noto_Naskh_Arabic } from "next/font/google";
 import "./globals.css";
+import { Starfield } from "@/components/ui/starfield";
 
 const display = Cormorant_Garamond({
   variable: "--font-display",
@@ -43,7 +44,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${display.variable} ${body.variable} ${arabic.variable} antialiased`}>
-        {children}
+        <div className="relative min-h-screen w-full">
+          <div aria-hidden className="pointer-events-none fixed inset-0 z-0 bg-[color:var(--bg)]" />
+          <Starfield />
+          <div className="relative z-20 w-full">{children}</div>
+        </div>
       </body>
     </html>
   );
