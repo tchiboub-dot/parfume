@@ -7,6 +7,7 @@
   --text: #f4f6fb;
   --text-soft: #b8bfd1;
   --gold: #d6ab49;
+  --veil: rgba(255, 255, 255, 0.035);
 }
 
 @theme inline {
@@ -22,6 +23,7 @@
   --text: #23252f;
   --text-soft: #5f6372;
   --gold: #b48a2a;
+  --veil: rgba(255, 255, 255, 0.55);
 }
 
 body {
@@ -46,18 +48,20 @@ html {
 }
 
 .btn-gold {
-  @apply rounded-full border border-transparent px-5 py-2.5 text-sm font-semibold transition;
+  @apply rounded-full border border-transparent px-5 py-2.5 text-sm font-semibold transition duration-300;
   background: linear-gradient(120deg, #f3d790, var(--gold));
   color: #131313;
+  box-shadow: 0 8px 26px -16px rgba(214, 171, 73, 0.7);
 }
 
 .btn-gold:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   filter: brightness(1.04);
 }
 
 .btn-ghost {
-  @apply rounded-full border border-white/20 px-5 py-2.5 text-sm text-[color:var(--text)] transition hover:bg-white/5;
+  @apply rounded-full border border-white/20 px-5 py-2.5 text-sm text-[color:var(--text)] transition duration-300 hover:bg-white/5;
+  backdrop-filter: blur(6px);
 }
 
 .input-luxe {
@@ -189,12 +193,13 @@ html {
 }
 
 .product-frame {
-  @apply rounded-2xl border border-white/10 shadow-[0_10px_40px_-20px_rgba(0,0,0,0.6)] transition duration-500;
+  @apply rounded-2xl border border-white/10 shadow-[0_12px_42px_-22px_rgba(0,0,0,0.64)] transition duration-500;
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 45%, rgba(255, 255, 255, 0) 100%);
 }
 
 .product-frame:hover {
   border-color: rgba(214, 171, 73, 0.2);
-  box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.7), 0 0 30px rgba(214, 171, 73, 0.1);
+  box-shadow: 0 24px 68px -24px rgba(0, 0, 0, 0.72), 0 0 34px rgba(214, 171, 73, 0.12);
 }
 
 /* Luxury Typography */
@@ -275,6 +280,18 @@ main > section {
   width: 100%;
 }
 
+main > section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(1200px 420px at 20% -5%, rgba(214, 171, 73, 0.07), transparent 62%),
+    radial-gradient(920px 460px at 85% 105%, rgba(140, 165, 214, 0.06), transparent 70%),
+    linear-gradient(180deg, transparent 0%, var(--veil) 50%, transparent 100%);
+}
+
 /* Ensure navbar sits above content but doesn't create stacking context */
 header {
   position: relative;
@@ -296,7 +313,7 @@ footer::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 0%, var(--surface) 100%);
+  background: linear-gradient(180deg, transparent 0%, rgba(18, 20, 32, 0.45) 100%);
   pointer-events: none;
   z-index: -1;
 }
@@ -321,8 +338,8 @@ footer::before {
 
 /* Premium Section Divider - keep stars visible */
 .section-divider {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  background: linear-gradient(90deg, transparent, rgba(214, 171, 73, 0.08), transparent);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(90deg, transparent, rgba(214, 171, 73, 0.05), transparent);
 }
 
 /* Smooth Scroll Behavior */
@@ -390,28 +407,29 @@ html {
 
 /* Testimonial Premium Styling */
 .testimonial-card {
-  @apply rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-white/0 p-8 backdrop-blur-xl;
+  @apply rounded-2xl border border-white/10 bg-gradient-to-br from-white/6 to-white/0 p-8 backdrop-blur-xl transition duration-500;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 20px 40px -20px rgba(0, 0, 0, 0.5);
 }
 
 .testimonial-card:hover {
   border-color: rgba(214, 171, 73, 0.2);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 20px 50px -20px rgba(0, 0, 0, 0.6), 0 0 20px rgba(214, 171, 73, 0.08);
+  transform: translateY(-4px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 24px 56px -24px rgba(0, 0, 0, 0.65), 0 0 24px rgba(214, 171, 73, 0.11);
 }
 
 /* Quotation Mark Premium */
 .quote-mark {
-  font-size: 3rem;
+  font-size: 3.6rem;
   line-height: 1;
-  color: rgba(214, 171, 73, 0.2);
+  color: rgba(214, 171, 73, 0.24);
   font-family: var(--font-display);
-  margin-bottom: 1rem;
+  margin-bottom: 0.65rem;
 }
 
 /* Section Title Enhancement */
 .section-title {
   font-family: var(--font-display);
-  @apply text-5xl font-semibold tracking-tight text-white relative;
+  @apply text-5xl font-semibold tracking-tight text-white relative md:text-6xl;
 }
 
 .section-title::before {
@@ -419,14 +437,28 @@ html {
   position: absolute;
   left: 0;
   top: -20px;
-  width: 60px;
-  height: 3px;
+  width: 74px;
+  height: 2px;
   background: linear-gradient(90deg, #d6ab49, transparent);
+}
+
+.section-intro {
+  @apply max-w-2xl text-[color:var(--text-soft)] leading-relaxed;
+}
+
+.section-shell {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.01));
+  backdrop-filter: blur(16px);
+}
+
+.chip-luxe {
+  @apply rounded-full border border-white/15 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-[color:var(--text-soft)];
 }
 
 /* Icon Premium Grid */
 .icon-grid-luxury {
-  @apply rounded-2xl border border-white/10 p-8 transition-all duration-300;
+  @apply rounded-2xl border border-white/10 p-8 transition-all duration-500;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%);
 }
 
@@ -434,13 +466,14 @@ html {
   border-color: rgba(214, 171, 73, 0.3);
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 100%);
   transform: translateY(-4px);
-  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.6), 0 0 20px rgba(214, 171, 73, 0.1);
+  box-shadow: 0 20px 46px -22px rgba(0, 0, 0, 0.66), 0 0 22px rgba(214, 171, 73, 0.11);
 }
 
 /* Navbar Scroll Enhancement */
 .navbar-scrolled {
-  background: rgba(18, 20, 32, 0.95);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 1px rgba(214, 171, 73, 0.1);
+  background: linear-gradient(180deg, rgba(12, 13, 18, 0.84), rgba(12, 13, 18, 0.65));
+  backdrop-filter: blur(18px) saturate(155%);
+  box-shadow: 0 10px 34px -18px rgba(0, 0, 0, 0.6), 0 0 1px rgba(214, 171, 73, 0.14);
 }
 
 /* Responsive Hero Text Sizing */

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Moon, Search, ShoppingBag, Sun, UserRound, Heart, Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -15,6 +16,7 @@ type NavbarProps = {
 
 export function Navbar({ locale }: NavbarProps) {
   const t = getDictionary(locale);
+  const pathname = usePathname();
   const { setTheme, resolvedTheme } = useTheme();
   const { data: session } = useSession();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -41,15 +43,16 @@ export function Navbar({ locale }: NavbarProps) {
     <header className={`sticky top-0 z-50 border-b transition-all duration-300 ${
       isScrolled
         ? "navbar-scrolled border-white/20"
-        : "border-white/15 bg-[color:var(--surface)]/70 backdrop-blur-2xl"
+        : "border-white/15 bg-[color:var(--surface)]/62 backdrop-blur-2xl"
     }`}>
-      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 lg:px-8 lg:py-5">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 lg:px-8 lg:py-6">
         {/* Logo */}
         <Link 
           href={`/${locale}`} 
-          className="font-display text-2xl lg:text-3xl font-semibold tracking-wide text-[color:var(--gold)] transition hover:opacity-80 flex-shrink-0"
+          className="flex flex-col leading-none text-[color:var(--gold)] transition hover:opacity-85 flex-shrink-0"
         >
-          {t.brand}
+          <span className="font-display text-2xl font-semibold tracking-[0.06em] lg:text-[2rem]">{t.brand}</span>
+          <span className="mt-1 text-[9px] uppercase tracking-[0.34em] text-[color:var(--text-soft)]">Maison de Parfum</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -58,7 +61,11 @@ export function Navbar({ locale }: NavbarProps) {
             <Link 
               key={item.href} 
               href={item.href} 
-              className="link-premium text-sm font-medium text-[color:var(--text-soft)] hover:text-[color:var(--text)]"
+              className={`link-premium text-sm font-medium transition ${
+                pathname === item.href
+                  ? "text-[color:var(--gold)]"
+                  : "text-[color:var(--text-soft)] hover:text-[color:var(--text)]"
+              }`}
             >
               {item.label}
             </Link>
@@ -66,10 +73,10 @@ export function Navbar({ locale }: NavbarProps) {
         </div>
 
         {/* Right Actions */}
-        <div className="flex items-center gap-2 ml-auto">
+        <div className="ml-auto flex items-center gap-2">
           {/* Theme Toggle */}
           <button
-            className="rounded-full border border-white/20 p-2.5 text-[color:var(--text-soft)] transition hover:border-[color:var(--gold)] hover:text-[color:var(--gold)]"
+            className="rounded-full border border-white/20 p-2.5 text-[color:var(--text-soft)] transition duration-300 hover:-translate-y-[1px] hover:border-[color:var(--gold)] hover:text-[color:var(--gold)]"
             onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
             aria-label="Toggle theme"
           >
@@ -77,12 +84,16 @@ export function Navbar({ locale }: NavbarProps) {
           </button>
 
           {/* Language Selector */}
-          <div className="hidden sm:flex rounded-full border border-white/20 px-2.5 py-1.5 text-xs font-semibold text-[color:var(--text-soft)] gap-1">
+          <div className="hidden gap-1 rounded-full border border-white/20 px-2.5 py-1.5 text-xs font-semibold text-[color:var(--text-soft)] sm:flex">
             {locales.map((item) => (
               <Link 
                 key={item} 
                 href={`/${item}`} 
-                className={`px-2 py-1 transition ${item === locale ? "text-[color:var(--gold)]" : "hover:text-[color:var(--text)]"}`}
+                className={`rounded-full px-2 py-1 transition ${
+                  item === locale
+                    ? "bg-white/5 text-[color:var(--gold)]"
+                    : "hover:text-[color:var(--text)]"
+                }`}
               >
                 {item.toUpperCase()}
               </Link>
@@ -144,7 +155,7 @@ export function Navbar({ locale }: NavbarProps) {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden rounded-full border border-white/20 p-2.5 text-[color:var(--text-soft)]"
+            className="rounded-full border border-white/20 p-2.5 text-[color:var(--text-soft)] transition hover:border-[color:var(--gold)] hover:text-[color:var(--gold)] lg:hidden"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
@@ -154,13 +165,15 @@ export function Navbar({ locale }: NavbarProps) {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden border-t border-white/15 bg-[color:var(--surface)]/95 backdrop-blur-xl">
+        <div className="border-t border-white/15 bg-[color:var(--surface)]/92 backdrop-blur-xl lg:hidden">
           <div className="mx-auto max-w-7xl px-4 py-4 space-y-3">
             {links.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="block text-sm font-medium text-[color:var(--text-soft)] hover:text-[color:var(--gold)] transition py-2"
+                className={`block py-2 text-sm font-medium transition ${
+                  pathname === item.href ? "text-[color:var(--gold)]" : "text-[color:var(--text-soft)] hover:text-[color:var(--gold)]"
+                }`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {item.label}

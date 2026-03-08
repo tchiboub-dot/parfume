@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, Instagram, Facebook, Twitter } from "lucide-react";
+import { Instagram, Facebook, Twitter } from "lucide-react";
 
 import { Locale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/translations";
@@ -9,7 +9,7 @@ export function Footer({ locale }: { locale: Locale }) {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/15 bg-[color:var(--surface)]/50 backdrop-blur-xl">
+    <footer className="border-t border-white/15 bg-[color:var(--surface)]/38 backdrop-blur-xl">
       <div className="mx-auto max-w-7xl px-4 py-16 lg:px-8">
         {/* Main Footer Grid */}
         <div className="grid gap-12 md:grid-cols-5 mb-12">
@@ -18,7 +18,7 @@ export function Footer({ locale }: { locale: Locale }) {
             <div>
               <h3 className="font-display text-3xl font-semibold text-[color:var(--gold)]">{t.brand}</h3>
               <p className="mt-3 text-sm text-[color:var(--text-soft)] leading-relaxed">
-                {t.footer.about || "Curated niche fragrances and luxury perfumes for the discerning collector. Experience the art of Fine Fragrance."}
+                {t.footer.about || "Curated niche fragrances and luxury perfumes for the discerning collector. Discover the art of fine fragrance through exclusive olfactive stories."}
               </p>
             </div>
 
@@ -135,25 +135,21 @@ export function Footer({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        {/* Newsletter Section */}
-        <div className="mb-12 rounded-2xl border border-white/15 bg-gradient-to-r from-white/5 to-white/0 p-8 backdrop-blur-xl">
-          <div className="grid gap-8 md:grid-cols-2 items-center">
+        {/* Private Client Note */}
+        <div className="mb-12 rounded-2xl border border-white/12 bg-gradient-to-r from-white/5 to-transparent p-7 backdrop-blur-xl">
+          <div className="grid items-center gap-6 md:grid-cols-[1fr_auto]">
             <div>
-              <h4 className="font-display text-2xl text-[color:var(--text)] mb-2">Fragrance Moments</h4>
-              <p className="text-sm text-[color:var(--text-soft)]">
-                Subscribe to receive curated fragrance guides, exclusive launches, and special offers.
+              <h4 className="font-display text-2xl text-[color:var(--text)]">Private Client Circle</h4>
+              <p className="mt-2 text-sm leading-relaxed text-[color:var(--text-soft)]">
+                For bespoke recommendations, gifting, and signature scent discovery, connect with our fragrance concierge.
               </p>
             </div>
-            <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="your@email.com"
-                className="input-luxe flex-1 bg-white/10"
-              />
-              <button className="btn-premium-gold whitespace-nowrap">
-                <Mail size={16} className="inline" />
-              </button>
-            </div>
+            <Link
+              href={`/${locale}/contact`}
+              className="btn-ghost inline-flex items-center justify-center px-6 py-3 text-xs font-semibold uppercase tracking-[0.2em]"
+            >
+              Contact Concierge
+            </Link>
           </div>
         </div>
 
