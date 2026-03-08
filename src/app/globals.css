@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0c0d12;
+  --surface: #121420;
+  --surface-strong: #171a27;
+  --text: #f4f6fb;
+  --text-soft: #b8bfd1;
+  --gold: #d6ab49;
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --font-sans: var(--font-body);
+}
+
+.light {
+  --bg: #f7f2e9;
+  --surface: #fffaf1;
+  --surface-strong: #fff;
+  --text: #23252f;
+  --text-soft: #5f6372;
+  --gold: #b48a2a;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body), sans-serif;
+  min-height: 100vh;
+}
+
+.font-display {
+  font-family: var(--font-display), serif;
+}
+
+[dir="rtl"] {
+  font-family: var(--font-arabic), sans-serif;
+}
+
+.btn-gold {
+  @apply rounded-full border border-transparent px-5 py-2.5 text-sm font-semibold transition;
+  background: linear-gradient(120deg, #f3d790, var(--gold));
+  color: #131313;
+}
+
+.btn-gold:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+}
+
+.btn-ghost {
+  @apply rounded-full border border-white/20 px-5 py-2.5 text-sm text-[color:var(--text)] transition hover:bg-white/5;
+}
+
+.input-luxe {
+  @apply w-full rounded-xl border border-white/20 bg-white/5 px-4 py-2.5 text-sm text-[color:var(--text)] outline-none placeholder:text-[color:var(--text-soft)] focus:border-[color:var(--gold)];
+}
+
+.admin-card {
+  @apply rounded-2xl border border-white/15 bg-[color:var(--surface)]/70 p-6 backdrop-blur-xl;
+}
+
+.stars-layer-1,
+.stars-layer-2,
+.stars-layer-3 {
+  background-repeat: repeat;
+  background-size: 380px 380px;
+  opacity: 0.45;
+}
+
+.stars-layer-1 {
+  background-image: radial-gradient(2px 2px at 20px 30px, rgba(235, 207, 142, 0.8), transparent),
+    radial-gradient(2px 2px at 70px 120px, rgba(228, 235, 255, 0.7), transparent),
+    radial-gradient(1.5px 1.5px at 190px 80px, rgba(167, 191, 255, 0.45), transparent);
+  animation: floatStars 32s linear infinite;
+}
+
+.stars-layer-2 {
+  background-image: radial-gradient(2px 2px at 110px 210px, rgba(227, 235, 255, 0.55), transparent),
+    radial-gradient(1.6px 1.6px at 280px 290px, rgba(235, 207, 142, 0.5), transparent),
+    radial-gradient(1.5px 1.5px at 340px 60px, rgba(156, 182, 250, 0.45), transparent);
+  animation: floatStars 44s linear infinite reverse;
+}
+
+.stars-layer-3 {
+  background-image: radial-gradient(1.2px 1.2px at 30px 300px, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1.8px 1.8px at 240px 170px, rgba(235, 207, 142, 0.45), transparent),
+    radial-gradient(1.2px 1.2px at 320px 240px, rgba(166, 188, 245, 0.4), transparent);
+  animation: floatStars 56s linear infinite;
+}
+
+@keyframes floatStars {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-380px);
+  }
+}

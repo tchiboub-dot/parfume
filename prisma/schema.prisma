@@ -1,0 +1,174 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  CUSTOMER
+}
+
+model User {
+  id           String      @id @default(cuid())
+  email        String      @unique
+  fullName     String
+  passwordHash String
+  role         Role        @default(CUSTOMER)
+  createdAt    DateTime    @default(now())
+  reviews      Review[]
+  orders       Order[]
+  wishlist     WishlistItem[]
+  addresses    Address[]
+}
+
+model Brand {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  perfumes Perfume[]
+}
+
+model Category {
+  id       String    @id @default(cuid())
+  name     String
+  perfumes Perfume[]
+}
+
+model Perfume {
+  id             String           @id @default(cuid())
+  slug           String           @unique
+  name           String
+  description    String
+  price          Float
+  oldPrice       Float?
+  stock          Int              @default(0)
+  family         String
+  concentration  String
+  audience       String
+  brandId        String
+  categoryId     String
+  createdAt      DateTime         @default(now())
+  brand          Brand            @relation(fields: [brandId], references: [id])
+  category       Category         @relation(fields: [categoryId], references: [id])
+  images         ProductImage[]
+  variants       ProductVariant[]
+  notes          FragranceNote[]
+  reviews        Review[]
+  wishlistItems  WishlistItem[]
+  orderItems     OrderItem[]
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  url       String
+  perfumeId String
+  perfume   Perfume @relation(fields: [perfumeId], references: [id])
+}
+
+model ProductVariant {
+  id        String  @id @default(cuid())
+  label     String
+  price     Float
+  stock     Int
+  perfumeId String
+  perfume   Perfume @relation(fields: [perfumeId], references: [id])
+}
+
+model FragranceNote {
+  id        String  @id @default(cuid())
+  level     String
+  value     String
+  perfumeId String
+  perfume   Perfume @relation(fields: [perfumeId], references: [id])
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int
+  comment   String
+  userId    String
+  perfumeId String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  perfume   Perfume  @relation(fields: [perfumeId], references: [id])
+}
+
+model WishlistItem {
+  id        String  @id @default(cuid())
+  userId    String
+  perfumeId String
+  user      User    @relation(fields: [userId], references: [id])
+  perfume   Perfume @relation(fields: [perfumeId], references: [id])
+}
+
+model Address {
+  id          String @id @default(cuid())
+  userId      String
+  line1       String
+  city        String
+  postalCode  String
+  country     String
+  phoneNumber String
+  user        User   @relation(fields: [userId], references: [id])
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  userId      String
+  status      String
+  total       Float
+  createdAt   DateTime    @default(now())
+  user        User        @relation(fields: [userId], references: [id])
+  items       OrderItem[]
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  perfumeId String
+  quantity  Int
+  unitPrice Float
+  order     Order   @relation(fields: [orderId], references: [id])
+  perfume   Perfume @relation(fields: [perfumeId], references: [id])
+}
+
+model Offer {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  discountPct Int
+  startsAt    DateTime
+  endsAt      DateTime
+}
+
+model GalleryMedia {
+  id        String   @id @default(cuid())
+  url       String
+  alt       String
+  createdAt DateTime @default(now())
+}
+
+model Translation {
+  id        String @id @default(cuid())
+  locale    String
+  namespace String
+  key       String
+  value     String
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model NewsletterSubscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
