@@ -44,7 +44,7 @@ export const perfumes: Perfume[] = [
     stock: 44,
     sizeOptions: ["30ml", "50ml", "100ml"],
     image:
-      "https://images.unsplash.com/photo-1615228939096-821b4a2f2f4f?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=1200&q=80",
     gallery: [
       "https://images.unsplash.com/photo-1615634262417-5f3f2ecf7f2d?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1611930021592-a8cfd5319ceb?auto=format&fit=crop&w=1200&q=80",
@@ -72,7 +72,7 @@ export const perfumes: Perfume[] = [
     stock: 18,
     sizeOptions: ["75ml", "125ml"],
     image:
-      "https://images.unsplash.com/photo-1590736969955-71cc94901144?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=1200&q=80",
     gallery: [
       "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1600612253971-422e7f7faeb6?auto=format&fit=crop&w=1200&q=80",

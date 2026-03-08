@@ -4,11 +4,17 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { Heart, Star } from "lucide-react";
+import { useState } from "react";
 
 import { Perfume } from "@/lib/types";
 import { Locale } from "@/lib/i18n";
 
+const FALLBACK_PRODUCT_IMAGE =
+  "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=1200&q=80";
+
 export function ProductCard({ perfume, locale }: { perfume: Perfume; locale: Locale }) {
+  const [imageSrc, setImageSrc] = useState(perfume.image);
+
   return (
     <motion.article
       whileHover={{ y: -6 }}
@@ -18,11 +24,16 @@ export function ProductCard({ perfume, locale }: { perfume: Perfume; locale: Loc
       <Link href={`/${locale}/product/${perfume.slug}`} className="block">
         <div className="product-image-premium relative overflow-hidden bg-gradient-to-br from-white/5 to-transparent">
           <Image
-            src={perfume.image}
+            src={imageSrc}
             alt={perfume.name}
             width={1200}
             height={1600}
             className="h-full w-full object-cover object-center transition duration-700 group-hover:scale-105"
+            onError={() => {
+              if (imageSrc !== FALLBACK_PRODUCT_IMAGE) {
+                setImageSrc(FALLBACK_PRODUCT_IMAGE);
+              }
+            }}
           />
           {/* Overlay glow on hover */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent opacity-70 transition duration-500 group-hover:opacity-85"></div>
