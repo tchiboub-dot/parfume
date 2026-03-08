@@ -21,6 +21,11 @@ type Star = {
   pulseStrength: number;
   pulseSpeed: number;
   pulsePhase: number;
+  canRenew: boolean;
+  renewPhase: "none" | "fade-out" | "fade-in";
+  renewOpacity: number;
+  renewSpeed: number;
+  renewDelay: number;
   color: [number, number, number];
 };
 
@@ -38,6 +43,7 @@ type LayerConfig = {
   alphaMin: number;
   alphaMax: number;
   pulseChance: number;
+  renewChance: number;
   parallax: number;
   glowScale: number;
 };
@@ -53,10 +59,11 @@ const LAYERS: LayerConfig[] = [
     speedXMin: -0.01,
     speedXMax: 0.01,
     twinkleMin: 0.09,
-    twinkleMax: 0.2,
+    twinkleMax: 0.24,
     alphaMin: 0.2,
     alphaMax: 0.55,
     pulseChance: 0.04,
+    renewChance: 0.14,
     parallax: 0.008,
     glowScale: 2.2,
   },
@@ -65,15 +72,16 @@ const LAYERS: LayerConfig[] = [
     ratio: 0.32,
     radiusMin: 0.75,
     radiusMax: 1.6,
-    speedYMin: 0.01,
-    speedYMax: 0.034,
+    speedYMin: 0.013,
+    speedYMax: 0.041,
     speedXMin: -0.018,
     speedXMax: 0.018,
     twinkleMin: 0.12,
-    twinkleMax: 0.32,
+    twinkleMax: 0.36,
     alphaMin: 0.3,
     alphaMax: 0.72,
     pulseChance: 0.08,
+    renewChance: 0.1,
     parallax: 0.014,
     glowScale: 2.8,
   },
@@ -82,15 +90,16 @@ const LAYERS: LayerConfig[] = [
     ratio: 0.12,
     radiusMin: 1.15,
     radiusMax: 2.05,
-    speedYMin: 0.016,
-    speedYMax: 0.046,
+    speedYMin: 0.019,
+    speedYMax: 0.056,
     speedXMin: -0.028,
     speedXMax: 0.028,
     twinkleMin: 0.18,
-    twinkleMax: 0.46,
+    twinkleMax: 0.52,
     alphaMin: 0.38,
     alphaMax: 0.88,
     pulseChance: 0.16,
+    renewChance: 0.06,
     parallax: 0.022,
     glowScale: 3.4,
   },
@@ -103,6 +112,7 @@ function randomBetween(min: number, max: number) {
 function createStar(width: number, height: number, palette: [number, number, number][], layer: LayerConfig): Star {
   const color = palette[Math.floor(Math.random() * palette.length)];
   const hasPulse = Math.random() < layer.pulseChance;
+  const canRenew = Math.random() < layer.renewChance;
 
   return {
     layer: layer.id,
@@ -121,8 +131,24 @@ function createStar(width: number, height: number, palette: [number, number, num
     pulseStrength: hasPulse ? randomBetween(0.05, 0.2) : 0,
     pulseSpeed: hasPulse ? randomBetween(0.04, 0.12) : 0,
     pulsePhase: Math.random() * Math.PI * 2,
+    canRenew,
+    renewPhase: "none",
+    renewOpacity: 1,
+    renewSpeed: randomBetween(0.004, 0.012),
+    renewDelay: randomBetween(900, 3400),
     color,
   };
+}
+
+function repositionStar(star: Star, width: number, height: number, layer: LayerConfig) {
+  star.x = Math.random() * width;
+  star.y = Math.random() * height;
+  star.speedX = randomBetween(layer.speedXMin, layer.speedXMax);
+  star.speedY = randomBetween(layer.speedYMin, layer.speedYMax);
+  star.driftAmplitude = randomBetween(0.55, 2.7);
+  star.driftSpeed = randomBetween(0.045, 0.17);
+  star.twinklePhase = Math.random() * Math.PI * 2;
+  star.pulsePhase = Math.random() * Math.PI * 2;
 }
 
 function getPalette(isLight: boolean): [number, number, number][] {
@@ -234,6 +260,28 @@ export function Starfield() {
         star.driftPhase += star.driftSpeed * 0.015 * delta * speedFactor;
         star.pulsePhase += star.pulseSpeed * 0.01 * delta * speedFactor;
 
+        if (star.canRenew && !prefersReducedMotion) {
+          star.renewDelay -= delta;
+          if (star.renewPhase === "none" && star.renewDelay <= 0) {
+            star.renewPhase = "fade-out";
+          }
+
+          if (star.renewPhase === "fade-out") {
+            star.renewOpacity = Math.max(0, star.renewOpacity - star.renewSpeed * delta);
+            if (star.renewOpacity <= 0.02) {
+              repositionStar(star, width, height, layerMap[star.layer]);
+              star.renewPhase = "fade-in";
+            }
+          } else if (star.renewPhase === "fade-in") {
+            star.renewOpacity = Math.min(1, star.renewOpacity + star.renewSpeed * delta * 0.8);
+            if (star.renewOpacity >= 0.98) {
+              star.renewOpacity = 1;
+              star.renewPhase = "none";
+              star.renewDelay = randomBetween(1000, 3800);
+            }
+          }
+        }
+
         if (star.x < -2) star.x = width + 2;
         if (star.x > width + 2) star.x = -2;
         if (star.y > height + 2) {
@@ -250,7 +298,7 @@ export function Starfield() {
 
         const twinkle = Math.sin(star.twinklePhase);
         const pulse = star.pulseStrength > 0 ? Math.max(0, Math.sin(star.pulsePhase)) * star.pulseStrength : 0;
-        const alpha = Math.max(0.08, star.alphaBase + twinkle * star.alphaRange + pulse);
+        const alpha = Math.max(0.08, (star.alphaBase + twinkle * star.alphaRange + pulse) * star.renewOpacity);
         const glowRadius = star.radius * (layer.glowScale + Math.max(0, twinkle) * 2.0 + pulse * 5.2);
 
         const gradient = context.createRadialGradient(drawX, drawY, 0, drawX, drawY, glowRadius);
