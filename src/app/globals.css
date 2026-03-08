@@ -99,3 +99,261 @@ body {
     transform: translateY(-380px);
   }
 }
+
+/* Premium Luxury Enhancements */
+
+/* Glow Effects */
+.glow-gold {
+  box-shadow: 0 0 30px rgba(214, 171, 73, 0.15), 0 0 60px rgba(214, 171, 73, 0.08);
+}
+
+.glow-gold-hover:hover {
+  box-shadow: 0 0 40px rgba(214, 171, 73, 0.25), 0 0 80px rgba(214, 171, 73, 0.12);
+  transition: box-shadow 0.4s ease;
+}
+
+.glow-subtle {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Premium Hero Enhancement */
+.hero-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-glow::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(214, 171, 73, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero-overlay {
+  background: linear-gradient(135deg, rgba(12, 13, 18, 0.4) 0%, transparent 50%, rgba(12, 13, 18, 0.3) 100%);
+  backdrop-filter: blur(0.5px);
+}
+
+/* Rich Product Cards */
+.product-image-premium {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+}
+
+.product-image-premium::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.15) 100%);
+  pointer-events: none;
+}
+
+.product-frame {
+  @apply rounded-2xl border border-white/10 shadow-[0_10px_40px_-20px_rgba(0,0,0,0.6)] transition duration-500;
+}
+
+.product-frame:hover {
+  border-color: rgba(214, 171, 73, 0.2);
+  box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.7), 0 0 30px rgba(214, 171, 73, 0.1);
+}
+
+/* Luxury Typography */
+.text-gold-premium {
+  background: linear-gradient(120deg, #f3d790, #d6ab49);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tracking-luxe {
+  letter-spacing: 0.08em;
+}
+
+/* Enhanced Button with Premium Feel */
+.btn-premium-gold {
+  @apply relative px-6 py-3 rounded-full font-semibold text-sm border border-transparent transition-all duration-300 overflow-hidden;
+  background: linear-gradient(120deg, #f3d790, #d6ab49);
+  color: #131313;
+}
+
+.btn-premium-gold::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, #f3d790, #d6ab49);
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+.btn-premium-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(214, 171, 73, 0.3);
+}
+
+.btn-premium-gold:active {
+  transform: translateY(0);
+}
+
+/* Elegant Border Gradient */
+.border-gradient {
+  position: relative;
+  border: 1px solid transparent;
+  background-image: linear-gradient(var(--surface), var(--surface)), 
+                    linear-gradient(120deg, #d6ab49, transparent);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+/* Soft Shadow System */
+.shadow-luxury {
+  box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.6), 
+              0 0 1px rgba(214, 171, 73, 0.1);
+}
+
+.shadow-luxury-lg {
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.7), 
+              0 0 1px rgba(214, 171, 73, 0.15);
+}
+
+/* Premium Section Divider */
+.section-divider {
+  @apply border-t border-white/10;
+  background: linear-gradient(90deg, transparent, rgba(214, 171, 73, 0.1), transparent);
+}
+
+/* Smooth Scroll Behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Premium Link Hover */
+.link-premium {
+  @apply relative transition-colors duration-300;
+}
+
+.link-premium::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, #d6ab49, transparent);
+  transition: width 0.3s ease;
+}
+
+.link-premium:hover::after {
+  width: 100%;
+}
+
+/* Backdrop Enhancement */
+.backdrop-premium {
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: rgba(12, 13, 18, 0.45);
+}
+
+/* Micro Interactions */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background-size: 1000px 100%;
+  animation: shimmer 3s infinite;
+}
+
+/* Scroll Transition */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Testimonial Premium Styling */
+.testimonial-card {
+  @apply rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-white/0 p-8 backdrop-blur-xl;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 20px 40px -20px rgba(0, 0, 0, 0.5);
+}
+
+.testimonial-card:hover {
+  border-color: rgba(214, 171, 73, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 20px 50px -20px rgba(0, 0, 0, 0.6), 0 0 20px rgba(214, 171, 73, 0.08);
+}
+
+/* Quotation Mark Premium */
+.quote-mark {
+  font-size: 3rem;
+  line-height: 1;
+  color: rgba(214, 171, 73, 0.2);
+  font-family: var(--font-display);
+  margin-bottom: 1rem;
+}
+
+/* Section Title Enhancement */
+.section-title {
+  font-family: var(--font-display);
+  @apply text-5xl font-semibold tracking-tight text-white relative;
+}
+
+.section-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -20px;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #d6ab49, transparent);
+}
+
+/* Icon Premium Grid */
+.icon-grid-luxury {
+  @apply rounded-2xl border border-white/10 p-8 transition-all duration-300;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%);
+}
+
+.icon-grid-luxury:hover {
+  border-color: rgba(214, 171, 73, 0.3);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 100%);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.6), 0 0 20px rgba(214, 171, 73, 0.1);
+}
+
+/* Navbar Scroll Enhancement */
+.navbar-scrolled {
+  background: rgba(18, 20, 32, 0.95);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 1px rgba(214, 171, 73, 0.1);
+}
+
+/* Responsive Hero Text Sizing */
+@media (max-width: 768px) {
+  .section-title::before {
+    width: 40px;
+  }
+}
