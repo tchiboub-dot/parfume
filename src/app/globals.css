@@ -72,6 +72,14 @@ html {
   @apply rounded-2xl border border-white/15 bg-[color:var(--surface)]/70 p-6 backdrop-blur-xl;
 }
 
+.starfield-vignette {
+  background: linear-gradient(180deg, rgba(6, 8, 14, 0.03) 0%, rgba(6, 8, 14, 0.18) 100%);
+}
+
+.light .starfield-vignette {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(205, 214, 236, 0.09) 100%);
+}
+
 .stars-layer-1,
 .stars-layer-2,
 .stars-layer-3 {
