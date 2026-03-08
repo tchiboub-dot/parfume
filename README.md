@@ -1,53 +1,69 @@
-# 🌸 Parfume Luxe
+# 🌸 Parfume Luxe - Luxury Perfume E-Commerce Platform
 
-A luxury perfume e-commerce platform built with Next.js 16, featuring multilingual support (English, French, Arabic with RTL), authentication, admin dashboard, and Stripe payment integration.
+A production-ready, full-stack e-commerce platform for luxury perfumes built with **Next.js 16**, **TypeScript**, **Prisma**, **NextAuth**, and **Stripe**. Features multilingual support (EN/FR/AR with RTL), animated UI, admin dashboard, and complete authentication system.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/tchiboub-dot/parfume)
 
 ## ✨ Features
 
-- 🎨 **Luxury Design**: Animated starfield background, elegant typography, dark/light theme
-- 🌍 **Multilingual**: Full support for English, French, and Arabic (with RTL layout)
-- 🔐 **Authentication**: NextAuth v4 with role-based access control (Admin/Customer)
-- 🛡️ **Admin Dashboard**: Complete product CRUD operations with protected routes
-- 💳 **Stripe Integration**: Secure payment processing with checkout sessions
-- 📦 **Database**: Prisma ORM with SQLite (dev) and PostgreSQL (production)
-- 🎭 **Animations**: Framer Motion for smooth transitions and interactions
-- 📱 **Responsive**: Mobile-first design that works on all devices
-- ⚡ **Performance**: Built with Next.js 16 App Router and Turbopack
+### 🛍️ **Customer Features**
+- 🌍 **Multilingual Support** - English, French, Arabic (with RTL)
+- 🎨 **Luxury Design** - Animated starfield backgrounds, smooth transitions
+- 🔐 **Authentication** - Secure sign-up/sign-in with NextAuth v4
+- 🛒 **Shopping Cart** - Add to cart, wishlist functionality
+- 💳 **Stripe Checkout** - Secure payment processing + Cash on Delivery
+- 📱 **Responsive** - Mobile-first design with Tailwind CSS v4
+- 🌙 **Dark/Light Mode** - Theme switching with next-themes
+- 🔍 **Product Search** - Filter by brand, category, price, audience
+- 📖 **Product Details** - Full product pages with descriptions
+- 📧 **Contact Form** - Customer support with database persistence
+
+### 👨‍💼 **Admin Features**
+- 📊 **Dashboard** - Revenue, orders, customers, stock metrics
+- ➕ **Product Management** - Full CRUD operations
+- ✏️ **Edit Products** - Update product details, pricing, stock
+- 🗑️ **Delete Products** - Remove products with confirmation
+- 🔒 **Role-Based Access** - Admin-only protected routes
+- 📦 **Stock Tracking** - Low stock alerts and indicators
+- 🏷️ **Brand & Category** - Dynamic brand/category management
 
 ## 🚀 Tech Stack
 
-- **Framework**: Next.js 16.1.6 (App Router)
-- **Language**: TypeScript 5
-- **Styling**: Tailwind CSS v4
-- **Database**: Prisma 6.16.3 + PostgreSQL/SQLite
-- **Authentication**: NextAuth 4.24.13
-- **Payments**: Stripe 20.4.1
-- **Animations**: Framer Motion 12.35.1
-- **Forms**: React Hook Form + Zod validation
-- **UI Components**: Custom components with Lucide icons
+| Category | Technologies |
+|----------|-------------|
+| **Framework** | Next.js 16.1.6 (App Router, Turbopack) |
+| **Language** | TypeScript 5 (Strict Mode) |
+| **Styling** | Tailwind CSS v4, Framer Motion |
+| **Database** | Prisma 6.16.3 + PostgreSQL/SQLite |
+| **Authentication** | NextAuth v4.24.13, bcryptjs |
+| **Payments** | Stripe 20.4.1 |
+| **Validation** | Zod 4.3.6 |
+| **UI Components** | Lucide React, Custom Components |
+| **Fonts** | Cormorant Garamond, Manrope, Noto Naskh Arabic |
 
 ## 📋 Prerequisites
 
-- Node.js 18.17 or later
-- npm, yarn, or pnpm
-- PostgreSQL database (for production deployment)
+- **Node.js** 18.x or higher
+- **npm** or **yarn** or **pnpm**
+- **PostgreSQL** database (for production) or **SQLite** (for local development)
+- **Git** installed
 
-## 🛠️ Local Installation
+## 🔧 Installation & Local Setup
 
-### 1. Clone the repository
+### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/parfume-luxe.git
-cd parfume-luxe
+git clone https://github.com/tchiboub-dot/parfume.git
+cd parfume
 ```
 
-### 2. Install dependencies
+### 2️⃣ Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 3. Set up environment variables
+### 3️⃣ Set Up Environment Variables
 
 Create a `.env` file in the root directory:
 
@@ -55,46 +71,42 @@ Create a `.env` file in the root directory:
 cp .env.example .env
 ```
 
-Update the `.env` file with your configuration:
+**For Local Development (SQLite):**
 
 ```env
-# Database (SQLite for local dev)
 DATABASE_URL="file:./dev.db"
-
-# Auth - Generate secure secrets
-AUTH_SECRET="your-generated-secret-here"
-NEXTAUTH_SECRET="your-generated-secret-here"
+NEXTAUTH_SECRET="generate-a-secret-key-here"
 NEXTAUTH_URL="http://localhost:3000"
-
-# Stripe (optional for local testing)
-STRIPE_SECRET_KEY="sk_test_..."
-STRIPE_WEBHOOK_SECRET="whsec_..."
 ```
 
-**Generate secure secrets:**
+**Generate NEXTAUTH_SECRET:**
 
 ```bash
+# Windows PowerShell
 node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+
+# Linux/Mac
+openssl rand -base64 32
 ```
 
-### 4. Set up the database
+### 4️⃣ Set Up Database
+
+**For SQLite (Local Development):**
 
 ```bash
-# Generate Prisma Client
 npm run prisma:generate
-
-# Run migrations
 npm run prisma:migrate
-
-# Seed the database with sample data
 npm run prisma:seed
 ```
 
-**Default Admin Account:**
-- Email: `admin@parfumeluxe.com`
-- Password: `admin123`
+**For PostgreSQL (Production):**
 
-### 5. Run the development server
+```bash
+npm run prisma:push
+npm run prisma:seed
+```
+
+### 5️⃣ Run Development Server
 
 ```bash
 npm run dev
@@ -102,231 +114,236 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## 🏗️ Build for Production
+### 6️⃣ Default Admin Credentials
 
-```bash
-# Build the application
-npm run build
+After seeding, use these credentials to access the admin panel:
 
-# Start production server
-npm start
 ```
+Email: admin@parfumeluxe.com
+Password: admin123
+```
+
+⚠️ **Important:** Change this password in production!
 
 ## 📦 Environment Variables
 
-### Required
+| Variable | Required | Description | Example |
+|----------|----------|-------------|---------|
+| `DATABASE_URL` | ✅ Yes | Database connection string | `postgresql://user:pass@host:5432/db` |
+| `NEXTAUTH_SECRET` | ✅ Yes | Secret for JWT encryption (min 32 chars) | `your-super-secret-key` |
+| `NEXTAUTH_URL` | ✅ Yes | Your application URL | `https://parfume.vercel.app` |
+| `STRIPE_SECRET_KEY` | ❌ No | Stripe secret key for payments | `sk_test_...` or `sk_live_...` |
+| `STRIPE_WEBHOOK_SECRET` | ❌ No | Stripe webhook signing secret | `whsec_...` |
+| `CLOUDINARY_CLOUD_NAME` | ❌ No | Cloudinary cloud name for images | `your-cloud-name` |
+| `CLOUDINARY_API_KEY` | ❌ No | Cloudinary API key | `123456789012345` |
+| `CLOUDINARY_API_SECRET` | ❌ No | Cloudinary API secret | `your-api-secret` |
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `DATABASE_URL` | Database connection string | `postgresql://user:pass@host:5432/db` |
-| `AUTH_SECRET` | NextAuth secret key | Generated 32-byte base64 string |
-| `NEXTAUTH_SECRET` | NextAuth secret (same as AUTH_SECRET) | Generated 32-byte base64 string |
-| `NEXTAUTH_URL` | Application URL | `https://yourdomain.com` |
+## 🏗️ Build for Production
 
-### Optional
-
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `STRIPE_SECRET_KEY` | Stripe secret API key | `sk_test_...` or `sk_live_...` |
-| `STRIPE_WEBHOOK_SECRET` | Stripe webhook secret | `whsec_...` |
-| `CLOUDINARY_CLOUD_NAME` | Cloudinary cloud name | `your-cloud-name` |
-| `CLOUDINARY_API_KEY` | Cloudinary API key | `123456789012345` |
-| `CLOUDINARY_API_SECRET` | Cloudinary API secret | `abcdefghijklmnopqrstuvwxyz` |
-
-## 🚀 Deploy to Vercel
-
-### Prerequisites
-
-1. **Set up a PostgreSQL database** (SQLite doesn't work on Vercel):
-   - [Vercel Postgres](https://vercel.com/docs/storage/vercel-postgres)
-   - [Neon](https://neon.tech/)
-   - [Supabase](https://supabase.com/)
-   - [PlanetScale](https://planetscale.com/)
-
-2. **Update Prisma schema** for PostgreSQL (if using SQLite locally):
-
-```prisma
-datasource db {
-  provider = "postgresql"  // Change from "sqlite"
-  url      = env("DATABASE_URL")
-}
+```bash
+npm run build
+npm start
 ```
 
-### Deployment Steps
+The app will be available at [http://localhost:3000](http://localhost:3000).
 
-#### Option 1: Vercel CLI (Recommended)
+## 🌐 Deploy to Vercel
+
+### Option 1: Deploy Button (Easiest)
+
+Click the "Deploy with Vercel" button at the top of this README.
+
+### Option 2: Vercel CLI
 
 ```bash
 # Install Vercel CLI
-npm i -g vercel
+npm install -g vercel
 
 # Login to Vercel
 vercel login
 
-# Deploy (follow prompts)
+# Deploy to preview
 vercel
 
 # Deploy to production
 vercel --prod
 ```
 
-#### Option 2: Vercel Dashboard
+### Option 3: GitHub Integration
 
 1. Push your code to GitHub
-2. Go to [vercel.com/new](https://vercel.com/new)
-3. Import your GitHub repository
-4. Configure environment variables:
-   - `DATABASE_URL`: Your PostgreSQL connection string
-   - `NEXTAUTH_SECRET`: Your generated secret
-   - `NEXTAUTH_URL`: Your Vercel deployment URL (e.g., `https://yourapp.vercel.app`)
-   - (Optional) `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`
-5. Click "Deploy"
+2. Go to [vercel.com](https://vercel.com)
+3. Click "New Project"
+4. Import your GitHub repository
+5. Configure environment variables
+6. Click "Deploy"
 
-### After Deployment
+### ⚙️ Vercel Environment Variables Setup
 
-1. **Run database migrations** on your production database:
+In your Vercel project dashboard, add these environment variables:
 
-```bash
-# Set DATABASE_URL to production
-export DATABASE_URL="postgresql://..."
-
-# Push schema to production
-npm run prisma:push
-
-# Seed production database
-npm run prisma:seed
+```env
+DATABASE_URL=postgresql://...
+NEXTAUTH_SECRET=your-generated-secret
+NEXTAUTH_URL=https://your-app.vercel.app
 ```
 
-2. **Update NEXTAUTH_URL** in Vercel environment variables to your actual domain
+### 🗄️ Database Setup on Vercel
 
-3. **Configure Stripe webhooks** (if using Stripe):
-   - Add your Vercel URL to Stripe webhook endpoints
-   - Update `STRIPE_WEBHOOK_SECRET` in Vercel
+**Option 1: Vercel Postgres**
+
+1. Go to your Vercel project dashboard
+2. Click "Storage" → "Create Database" → "Postgres"
+3. Copy the `DATABASE_URL` to your environment variables
+4. Run: `npx prisma db push` locally to sync schema
+5. Run: `npm run prisma:seed` to add initial data
+
+**Option 2: External Database (Neon, Supabase, Railway)**
+
+1. Create a PostgreSQL database on your provider
+2. Copy the connection string as `DATABASE_URL`
+3. Add to Vercel environment variables
+4. Deploy and run migrations
 
 ## 📁 Project Structure
 
 ```
-parfume-luxe/
+parfume/
 ├── prisma/
-│   ├── migrations/          # Database migrations
-│   ├── schema.prisma        # Database schema
-│   └── seed.ts             # Database seeding script
-├── public/                  # Static assets
+│   ├── schema.prisma          # Database schema
+│   ├── seed.ts                # Seed data script
+│   └── migrations/            # Database migrations
+├── public/                    # Static assets
 ├── src/
 │   ├── app/
-│   │   ├── [locale]/       # Internationalized routes
-│   │   │   ├── admin/      # Admin dashboard pages
-│   │   │   ├── auth/       # Authentication pages
-│   │   │   ├── shop/       # Shop pages
-│   │   │   └── ...         # Other pages
-│   │   └── api/            # API routes
-│   │       ├── admin/      # Admin API endpoints
-│   │       ├── auth/       # NextAuth endpoints
-│   │       └── ...         # Public API endpoints
+│   │   ├── [locale]/         # Localized routes
+│   │   │   ├── admin/        # Admin dashboard & product management
+│   │   │   ├── auth/         # Sign-in & sign-up pages
+│   │   │   ├── shop/         # Product listing
+│   │   │   ├── product/      # Product detail pages
+│   │   │   └── ...
+│   │   └── api/
+│   │       ├── auth/         # NextAuth endpoints
+│   │       ├── admin/        # Admin API routes
+│   │       ├── products/     # Product API
+│   │       ├── checkout/     # Stripe checkout
+│   │       └── contact/      # Contact form
 │   ├── components/
-│   │   ├── layout/         # Layout components
-│   │   ├── sections/       # Page sections
-│   │   ├── shop/           # Shop components
-│   │   └── ui/             # Reusable UI components
+│   │   ├── layout/           # Navbar, Footer
+│   │   ├── sections/         # Home page sections
+│   │   ├── shop/             # Product cards, grids
+│   │   ├── ui/               # Reusable UI components
+│   │   └── providers/        # Context providers
 │   ├── lib/
-│   │   ├── auth-options.ts # NextAuth configuration
-│   │   ├── auth.ts         # Auth helpers
-│   │   ├── prisma.ts       # Prisma client
-│   │   ├── stripe.ts       # Stripe client
-│   │   ├── i18n.ts         # Internationalization config
-│   │   └── translations.ts # Translation data
-│   └── types/              # TypeScript type definitions
-├── .env.example            # Environment variables template
-├── .gitignore             # Git ignore rules
-├── middleware.ts          # Next.js middleware (i18n routing)
-├── next.config.ts         # Next.js configuration
-├── package.json           # Dependencies and scripts
-├── tailwind.config.ts     # Tailwind CSS configuration
-├── tsconfig.json          # TypeScript configuration
-└── vercel.json            # Vercel deployment configuration
+│   │   ├── auth.ts           # NextAuth configuration
+│   │   ├── prisma.ts         # Prisma client
+│   │   ├── stripe.ts         # Stripe client
+│   │   ├── i18n.ts           # Internationalization
+│   │   └── translations.ts   # Translation strings
+│   └── types/                # TypeScript types
+└── middleware.ts             # i18n middleware
+
 ```
 
-## 🔐 Admin Access
+## 🗄️ Database Schema
 
-After seeding the database, you can access the admin dashboard:
+### Models
 
-1. Navigate to `/auth/sign-in`
-2. Login with:
-   - Email: `admin@parfumeluxe.com`
-   - Password: `admin123`
-3. Access admin panel at `/admin`
+- **User** - Authentication and user management
+- **Perfume** - Product catalog
+- **Brand** - Product brands
+- **Category** - Product categories
+- **Order** - Customer orders
+- **OrderItem** - Order line items
+- **Review** - Product reviews
+- **ContactMessage** - Customer inquiries
+- **WishlistItem** - User wishlists
+- **Address** - Shipping addresses
 
-**⚠️ Important**: Change the default admin password in production!
-
-## 🎨 Available Scripts
+## 📜 Available Scripts
 
 ```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm start            # Start production server
-npm run lint         # Run ESLint
+npm run dev              # Start development server
+npm run build            # Build for production
+npm start                # Start production server
+npm run lint             # Run ESLint
 npm run prisma:generate  # Generate Prisma Client
-npm run prisma:migrate   # Run database migrations
-npm run prisma:studio    # Open Prisma Studio
-npm run prisma:seed      # Seed database with sample data
+npm run prisma:migrate   # Run database migrations (dev)
 npm run prisma:push      # Push schema to database (production)
+npm run prisma:studio    # Open Prisma Studio GUI
+npm run prisma:seed      # Seed database with sample data
 ```
 
-## 🌐 Internationalization
+## 🔐 Security Features
 
-The application supports three languages:
-- **English** (en) - Default
-- **French** (fr)
-- **Arabic** (ar) - with RTL layout support
+- ✅ JWT-based authentication with NextAuth
+- ✅ Password hashing with bcryptjs (10 rounds)
+- ✅ Role-based access control (ADMIN/CUSTOMER)
+- ✅ Protected API routes with session validation
+- ✅ Secure headers (X-Frame-Options, CSP)
+- ✅ Environment variable validation
+- ✅ SQL injection prevention via Prisma ORM
+- ✅ XSS protection with React's built-in escaping
 
-Switch languages using the language selector in the navigation bar.
+## 🎨 Design Features
 
-## 💳 Payment Integration
-
-Stripe payment integration is configured but optional. To enable:
-
-1. Get your Stripe API keys from [dashboard.stripe.com](https://dashboard.stripe.com/apikeys)
-2. Add to `.env`:
-   ```env
-   STRIPE_SECRET_KEY="sk_test_..."
-   STRIPE_WEBHOOK_SECRET="whsec_..."
-   ```
-3. Configure Stripe webhooks for your domain
+- 🌌 Animated starfield backgrounds
+- ✨ Smooth page transitions with Framer Motion
+- 🎭 Dark/Light theme toggle
+- 📱 Fully responsive design
+- ♿ Accessible components
+- 🌍 RTL support for Arabic
+- 🎯 Lazy loading images and components
 
 ## 🐛 Troubleshooting
 
-### Build fails with Prisma errors
+### Build Errors
 
+**Error: `Prisma Client not generated`**
 ```bash
-# Regenerate Prisma Client
 npm run prisma:generate
 ```
 
-### Database connection issues
+**Error: `DATABASE_URL is not set`**
+```bash
+# Check your .env file exists and has DATABASE_URL
+cat .env
+```
 
-- For local development, ensure `DATABASE_URL="file:./dev.db"`
-- For production, use a PostgreSQL connection string
-- Check that database is accessible from your deployment environment
+### Database Issues
 
-### NextAuth authentication issues
+**Error: `Can't reach database server`**
+```bash
+# For PostgreSQL, ensure your database is running
+# For SQLite, check DATABASE_URL="file:./dev.db"
+```
 
-- Ensure `NEXTAUTH_SECRET` is set and matches in all environments
-- Update `NEXTAUTH_URL` to match your deployment domain
-- Check that cookies are enabled in your browser
+**Need to reset database?**
+```bash
+# WARNING: This deletes all data
+rm prisma/dev.db
+npm run prisma:migrate
+npm run prisma:seed
+```
 
 ## 📝 License
 
-This project is private and proprietary.
+This project is licensed under the MIT License.
 
-## 🤝 Contributing
+## 👨‍💻 Author
 
-This is a private project. For questions or support, please contact the development team.
+**Tchiboub**
+- GitHub: [@tchiboub-dot](https://github.com/tchiboub-dot)
+- Repository: [parfume](https://github.com/tchiboub-dot/parfume)
 
-## 📧 Support
+## 🙏 Acknowledgments
 
-For issues or questions, please contact: support@parfumeluxe.com
+- Next.js team for the amazing framework
+- Vercel for hosting and deployment
+- Prisma for the excellent ORM
+- Tailwind CSS for styling utilities
+- NextAuth for authentication
 
 ---
 
-Built with ❤️ using Next.js and modern web technologies.
-# parfume
+Made with ❤️ by Tchiboub

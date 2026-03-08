@@ -10,29 +10,9 @@ interface Brand {
   name: string;
 }
 
-interface Brand {
-  id: string;
-  name: string;
-}
-
 interface Category {
   id: string;
   name: string;
-}
-
-interface Product {
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  price: number;
-  oldPrice: number | null;
-  stock: number;
-  family: string;
-  concentration: string;
-  audience: string;
-  brand: Brand;
-  category: Category;
 }
 
 export default function EditProductPage() {
@@ -67,10 +47,10 @@ export default function EditProductPage() {
         const res = await fetch("/api/admin/products");
         if (!res.ok) throw new Error("Failed to fetch products");
         
-        const products: Product[] = await res.json();
+        const products = await res.json();
         
         // Find current product
-        const product = products.find((p: Product) => p.id === productId);
+        const product = products.find((p: any) => p.id === productId);
         if (!product) throw new Error("Product not found");
 
         // Set form data
@@ -90,11 +70,11 @@ export default function EditProductPage() {
 
         // Extract unique brands and categories
         const uniqueBrands = Array.from(
-          new Set(products.map((p: Product) => JSON.stringify(p.brand)))
+          new Set(products.map((p: any) => JSON.stringify(p.brand)))
         ).map((b) => JSON.parse(b as string));
         
         const uniqueCategories = Array.from(
-          new Set(products.map((p: Product) => JSON.stringify(p.category)))
+          new Set(products.map((p: any) => JSON.stringify(p.category)))
         ).map((c) => JSON.parse(c as string));
 
         setBrands(uniqueBrands);

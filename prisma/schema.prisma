@@ -1,9 +1,26 @@
+// =============================================================================
+// PRISMA SCHEMA - Parfume Luxe E-Commerce
+// =============================================================================
+// 
+// LOCAL DEVELOPMENT (SQLite - Current Config):
+//   - Fast, no server needed
+//   - Good for development and testing
+//   - DATABASE_URL="file:./dev.db"
+//
+// PRODUCTION (PostgreSQL - Recommended for Vercel):
+//   - Change provider to "postgresql"
+//   - Get DATABASE_URL from: Vercel Postgres, Neon, or Supabase
+//   - DATABASE_URL="postgresql://user:pass@host:5432/db?sslmode=require"
+//   - After changing, run: npm run prisma:push
+//
+// =============================================================================
+
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "sqlite"  // Change to "postgresql" for production
   url      = env("DATABASE_URL")
 }
 

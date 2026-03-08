@@ -10,21 +10,9 @@ interface Brand {
   name: string;
 }
 
-interface Brand {
-  id: string;
-  name: string;
-}
-
 interface Category {
   id: string;
   name: string;
-}
-
-interface Product {
-  id: string;
-  name: string;
-  brand: Brand;
-  category: Category;
 }
 
 export default function NewProductPage() {
@@ -57,11 +45,11 @@ export default function NewProductPage() {
         
         // Extract unique brands and categories
         const uniqueBrands = Array.from(
-          new Set(products.map((p: Product) => JSON.stringify(p.brand)))
+          new Set(products.map((p: any) => JSON.stringify(p.brand)))
         ).map((b) => JSON.parse(b as string));
         
         const uniqueCategories = Array.from(
-          new Set(products.map((p: Product) => JSON.stringify(p.category)))
+          new Set(products.map((p: any) => JSON.stringify(p.category)))
         ).map((c) => JSON.parse(c as string));
 
         setBrands(uniqueBrands);
