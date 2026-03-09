@@ -45,14 +45,14 @@ export function Navbar({ locale }: NavbarProps) {
         ? "navbar-scrolled border-white/20"
         : "border-white/15 bg-[color:var(--surface)]/62 backdrop-blur-2xl"
     }`}>
-      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 lg:px-8 lg:py-6">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-2 sm:gap-4 px-3 sm:px-4 py-3 sm:py-4 lg:px-8 lg:py-6">
         {/* Logo */}
         <Link 
           href={`/${locale}`} 
           className="flex flex-col leading-none text-[color:var(--gold)] transition hover:opacity-85 flex-shrink-0"
         >
-          <span className="font-display text-2xl font-semibold tracking-[0.06em] lg:text-[2rem]">{t.brand}</span>
-          <span className="mt-1 text-[9px] uppercase tracking-[0.34em] text-[color:var(--text-soft)]">Maison de Parfum</span>
+          <span className="font-display text-xl sm:text-2xl font-semibold tracking-[0.06em] lg:text-[2rem]">{t.brand}</span>
+          <span className="mt-0.5 sm:mt-1 text-[8px] sm:text-[9px] uppercase tracking-[0.34em] text-[color:var(--text-soft)]">Maison de Parfum</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -73,23 +73,23 @@ export function Navbar({ locale }: NavbarProps) {
         </div>
 
         {/* Right Actions */}
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-1 sm:gap-2">
           {/* Theme Toggle */}
           <button
-            className="rounded-full border border-white/20 p-2.5 text-[color:var(--text-soft)] transition duration-300 hover:-translate-y-[1px] hover:border-[color:var(--gold)] hover:text-[color:var(--gold)]"
+            className="rounded-full border border-white/20 p-1.5 sm:p-2 sm:p-2.5 text-[color:var(--text-soft)] transition duration-300 hover:-translate-y-[1px] hover:border-[color:var(--gold)] hover:text-[color:var(--gold)]"
             onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
             aria-label="Toggle theme"
           >
-            {resolvedTheme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+            {resolvedTheme === "dark" ? <Sun size={16} className="sm:w-[18px] sm:h-[18px]" /> : <Moon size={16} className="sm:w-[18px] sm:h-[18px]" />}
           </button>
 
           {/* Language Selector */}
-          <div className="hidden gap-1 rounded-full border border-white/20 px-2.5 py-1.5 text-xs font-semibold text-[color:var(--text-soft)] sm:flex">
+          <div className="hidden gap-0.5 sm:gap-1 rounded-full border border-white/20 px-1.5 sm:px-2.5 py-1 sm:py-1.5 text-[10px] sm:text-xs font-semibold text-[color:var(--text-soft)] sm:flex">
             {locales.map((item) => (
               <Link 
                 key={item} 
                 href={`/${item}`} 
-                className={`rounded-full px-2 py-1 transition ${
+                className={`rounded-full px-1.5 sm:px-2 py-0.5 sm:py-1 transition text-[9px] sm:text-[11px] ${
                   item === locale
                     ? "bg-white/5 text-[color:var(--gold)]"
                     : "hover:text-[color:var(--text)]"
@@ -102,51 +102,51 @@ export function Navbar({ locale }: NavbarProps) {
 
           {/* Search */}
           <Link 
-            className="rounded-full border border-white/20 p-2.5 text-[color:var(--text-soft)] transition hover:border-[color:var(--gold)] hover:text-[color:var(--gold)]" 
+            className="rounded-full border border-white/20 p-1.5 sm:p-2 sm:p-2.5 text-[color:var(--text-soft)] transition hover:border-[color:var(--gold)] hover:text-[color:var(--gold)]" 
             href={`/${locale}/search`}
             title="Search"
           >
-            <Search size={18} />
+            <Search size={16} className="sm:w-[18px] sm:h-[18px]" />
           </Link>
 
           {/* Wishlist */}
           <Link 
-            className="rounded-full border border-white/20 p-2.5 text-[color:var(--text-soft)] transition hover:border-[color:var(--gold)] hover:text-[color:var(--gold)]" 
+            className="rounded-full border border-white/20 p-1.5 sm:p-2 sm:p-2.5 text-[color:var(--text-soft)] transition hover:border-[color:var(--gold)] hover:text-[color:var(--gold)]" 
             href={`/${locale}/wishlist`}
             title="Wishlist"
           >
-            <Heart size={18} />
+            <Heart size={16} className="sm:w-[18px] sm:h-[18px]" />
           </Link>
 
           {/* Cart */}
           <Link 
-            className="rounded-full border border-white/20 p-2.5 text-[color:var(--text-soft)] transition hover:border-[color:var(--gold)] hover:text-[color:var(--gold)]" 
+            className="rounded-full border border-white/20 p-1.5 sm:p-2 sm:p-2.5 text-[color:var(--text-soft)] transition hover:border-[color:var(--gold)] hover:text-[color:var(--gold)]" 
             href={`/${locale}/cart`}
             title="Cart"
           >
-            <ShoppingBag size={18} />
+            <ShoppingBag size={16} className="sm:w-[18px] sm:h-[18px]" />
           </Link>
 
           {/* Account */}
           <Link 
-            className="rounded-full border border-white/20 p-2.5 text-[color:var(--text-soft)] transition hover:border-[color:var(--gold)] hover:text-[color:var(--gold)]" 
+            className="rounded-full border border-white/20 p-1.5 sm:p-2 sm:p-2.5 text-[color:var(--text-soft)] transition hover:border-[color:var(--gold)] hover:text-[color:var(--gold)]" 
             href={`/${locale}/account`}
             title="Account"
           >
-            <UserRound size={18} />
+            <UserRound size={16} className="sm:w-[18px] sm:h-[18px]" />
           </Link>
 
           {/* Auth Button */}
           {session?.user ? (
             <button
               onClick={() => signOut({ callbackUrl: `/${locale}/auth/sign-in` })}
-              className="hidden sm:block rounded-full border border-white/20 px-4 py-2 text-xs font-semibold text-[color:var(--text-soft)] transition hover:border-[color:var(--gold)] hover:text-[color:var(--gold)]"
+              className="hidden sm:block rounded-full border border-white/20 px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-xs font-semibold text-[color:var(--text-soft)] transition hover:border-[color:var(--gold)] hover:text-[color:var(--gold)]"
             >
               Sign Out
             </button>
           ) : (
             <Link 
-              className="hidden sm:block rounded-full border border-white/20 px-4 py-2 text-xs font-semibold text-[color:var(--text-soft)] transition hover:border-[color:var(--gold)] hover:text-[color:var(--gold)]" 
+              className="hidden sm:block rounded-full border border-white/20 px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-xs font-semibold text-[color:var(--text-soft)] transition hover:border-[color:var(--gold)] hover:text-[color:var(--gold)]" 
               href={`/${locale}/auth/sign-in`}
             >
               Sign In
@@ -155,10 +155,10 @@ export function Navbar({ locale }: NavbarProps) {
 
           {/* Mobile Menu Button */}
           <button
-            className="rounded-full border border-white/20 p-2.5 text-[color:var(--text-soft)] transition hover:border-[color:var(--gold)] hover:text-[color:var(--gold)] lg:hidden"
+            className="rounded-full border border-white/20 p-1.5 sm:p-2 sm:p-2.5 text-[color:var(--text-soft)] transition hover:border-[color:var(--gold)] hover:text-[color:var(--gold)] lg:hidden"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+            {isMobileMenuOpen ? <X size={16} className="sm:w-[18px] sm:h-[18px]" /> : <Menu size={16} className="sm:w-[18px] sm:h-[18px]" />}
           </button>
         </div>
       </nav>
